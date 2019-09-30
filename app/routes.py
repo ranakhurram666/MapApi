@@ -31,19 +31,21 @@ def markers(id=None):
         if request.method == 'POST':
             if name and lat and long:
                 print(type(lat))
-                if isinstance(lat, float) and isinstance(long, float):
-                    marker = Marker(name=name, latitude=lat, longitude=long)
+                if (isinstance(lat, float) or isinstance(lat, int)) and \
+                        (isinstance(long, float) or isinstance(long, int)):
+                    marker = Marker(name=name, latitude=float(lat), longitude=float(long))
                     db.session.add(marker)
                     db.session.commit()
                     return make_response('Marker Created', STATUS_CREATED)
     else:
         if request.method == 'PUT':
             if name and lat and long:
-                if isinstance(lat, float) and isinstance(long, float):
+                if (isinstance(lat, float) or isinstance(lat, int)) and \
+                        (isinstance(long, float) or isinstance(long, int)):
                     marker = Marker.query.filter_by(id=id).first()
                     marker.name = name
-                    marker.latitude = lat
-                    marker.longitude = long
+                    marker.latitude = float(lat)
+                    marker.longitude = float(long)
                     db.session.commit()
                     return make_response('Marker Updated', STATUS_UPDATED)
         if request.method == 'DELETE':

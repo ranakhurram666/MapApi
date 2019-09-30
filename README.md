@@ -16,8 +16,10 @@ Following are the feature and their test cases.
 
 - Clone the repo or download code from [React application - Google Map Markers](https://github.com/ranakhurram666/GoogleMaps)
 - Run `npm install` in the root folder
-- Make sure that Flask server is running
+- Run `npm install --only=dev` to install dev dependencies
+- Make sure that back-end flask server is running, (see back-end installation guide)
 - Run `npm run dev`
+- Application is running at http://localhost:8080
 - To run tests, run `npm tests -- -u`
 
 ## Back-End Installation
@@ -29,3 +31,13 @@ Following are the feature and their test cases.
 - Create MySql database and define your DB_NAME, DB_USER, DB_PASSWORD and DB_HOST in `constants.py	`
 - Now Run `python run.py`
 - Application is running on http://0.0.0.0:5000
+
+## Some Guidelines
+
+- Configurations like database config, status codes and constants are handled in separate files in both repos
+- If third party encounters any error then application will not break, just map will not show. CRUD operations will work as normal
+- If you need to change geocoder api(Google maps) or need to add any other geocoder api(Bing maps) then just you need to change front-end(React) code.
+	- In `src/js/components/maps/`, add the new geocoder api integration component.
+	- In  `src/js/components/mapMarkers/`, add markers component if needed.
+	- In `src/js/components/Layout.js`, change `<GoogleMap/>` to the new one e.g `<BingMap/>`
+	- Rest of the items will remain same
